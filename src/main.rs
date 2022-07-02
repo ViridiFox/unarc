@@ -36,11 +36,11 @@ fn main() -> anyhow::Result<()> {
             let target = target.or_else(|| Some(archive.with_extension(""))).unwrap();
 
             let format_tool = formats::from_file(&archive)?;
-            format_tool.extract(archive, target);
+            format_tool.extract(archive, target)?;
         }
         Command::Create { archive, files } => {
             let format_tool = formats::from_file(&archive)?;
-            format_tool.create(archive, files);
+            format_tool.create(archive, files)?;
         }
         Command::List { archive } => {
             let format_tool = formats::from_file(&archive)?;
