@@ -1,5 +1,6 @@
 use std::path::{Path, PathBuf};
 
+mod tar;
 mod zip;
 
 pub trait Format {
@@ -21,6 +22,9 @@ pub fn from_file(file_name: impl AsRef<Path>) -> anyhow::Result<Box<dyn Format>>
 
     match (sec_last_ext, last_ext) {
         (_, Some("zip")) => Ok(Box::new(zip::Format::new())),
+        (None, Some("tar")) => Ok(Box::new(tar::Format::new())),
+        (Some("tar"), _) => Ok(Box::new(tar::Format::new())),
+
         _ => Err(anyhow::anyhow!("unknown extension")),
     }
 }

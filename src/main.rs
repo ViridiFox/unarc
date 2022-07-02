@@ -13,18 +13,21 @@ struct Cli {
 
 #[derive(Debug, Subcommand)]
 enum Command {
-    /// extract archive into target dir
+    #[clap(alias = "x")]
+    /// extract archive into target dir [alias: x]
     Extract {
         archive: PathBuf,
         /// defaults to a name derived from the archive
         target: Option<PathBuf>,
     },
-    /// creates an archive containing the listed files
+    #[clap(alias = "c")]
+    /// creates an archive containing the listed files [alias: c]
     Create {
         archive: PathBuf,
         files: Vec<PathBuf>,
     },
-    /// list the files inside of an archive
+    #[clap(alias = "l")]
+    /// list the files inside of an archive [alias: l]
     List { archive: PathBuf },
 }
 
