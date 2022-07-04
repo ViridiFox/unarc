@@ -10,11 +10,7 @@ impl Format {
 }
 
 impl super::Format for Format {
-    fn extract(
-        self: Box<Self>,
-        archive: std::path::PathBuf,
-        target_dir: std::path::PathBuf,
-    ) -> anyhow::Result<()> {
+    fn extract(self: Box<Self>, archive: PathBuf, target_dir: PathBuf) -> anyhow::Result<()> {
         let archive = archive
             .to_str()
             .ok_or_else(|| anyhow::anyhow!("valid utf-8 name"))?;
@@ -35,10 +31,7 @@ impl super::Format for Format {
         Ok(())
     }
 
-    fn list(
-        self: Box<Self>,
-        archive: std::path::PathBuf,
-    ) -> anyhow::Result<Vec<std::path::PathBuf>> {
+    fn list(self: Box<Self>, archive: PathBuf) -> anyhow::Result<Vec<PathBuf>> {
         let archive = archive
             .to_str()
             .ok_or_else(|| anyhow::anyhow!("valid utf-8 name"))?;
@@ -51,11 +44,7 @@ impl super::Format for Format {
             .collect())
     }
 
-    fn create(
-        self: Box<Self>,
-        archive: std::path::PathBuf,
-        files: Vec<std::path::PathBuf>,
-    ) -> anyhow::Result<()> {
+    fn create(self: Box<Self>, archive: PathBuf, files: Vec<PathBuf>) -> anyhow::Result<()> {
         let archive_s = archive
             .to_str()
             .ok_or_else(|| anyhow::anyhow!("valid utf-8 name"))?;
