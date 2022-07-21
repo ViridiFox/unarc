@@ -25,7 +25,7 @@ impl super::Format for Format {
         Command::new("tar")
             .arg("-xaf")
             .arg(archive)
-            .arg(format!("-C={target_dir_s}"))
+            .arg(format!("-C{target_dir_s}"))
             .status()?;
 
         Ok(())

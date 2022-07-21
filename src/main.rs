@@ -37,17 +37,18 @@ fn main() -> anyhow::Result<()> {
 
     match args.command {
         Command::Extract { archive, target } => {
-            let target = target.or_else(|| Some(archive.with_extension(""))).unwrap();
+            let (format_tool, target_derive) = formats::from_file(&archive)?;
 
-            let format_tool = formats::from_file(&archive)?;
+            let target = target.unwrap_or(target_derive);
+
             format_tool.extract(archive, target)?;
         }
         Command::Create { archive, files } => {
-            let format_tool = formats::from_file(&archive)?;
+            let (format_tool, _) = formats::from_file(&archive)?;
             format_tool.create(archive, files)?;
         }
         Command::List { archive } => {
-            let format_tool = formats::from_file(&archive)?;
+            let (format_tool, _) = formats::from_file(&archive)?;
             let list = format_tool.list(archive.clone())?;
 
             for entry in list {
