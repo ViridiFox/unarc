@@ -27,8 +27,7 @@ pub fn from_file(file_name: impl AsRef<Path>) -> anyhow::Result<(Box<dyn Format>
     let last_ext = file_name.extension().and_then(|s| s.to_str());
 
     match (sec_last_ext.as_deref(), last_ext) {
-        (Some("tar"), Some("bz2")) => Ok((Box::new(tar::Format::new()), target_2)),
-        (Some("tar"), Some("gz")) => Ok((Box::new(tar::Format::new()), target_2)),
+        (Some("tar"), Some("bz2" | "gz" | "xz")) => Ok((Box::new(tar::Format::new()), target_2)),
 
         (_, Some("zip")) => Ok((Box::new(zip::Format::new()), target_1)),
         (_, Some("tar")) => Ok((Box::new(tar::Format::new()), target_1)),
